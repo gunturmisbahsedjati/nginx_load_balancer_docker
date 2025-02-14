@@ -1,0 +1,70 @@
+version: '3'
+services:
+  appnode1:
+    container_name: appnode1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3001:80
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - load_balance_network
+    # depends_on:
+    #   - db
+    restart: always
+    # db:
+    #   image: mysql:8.1.0
+    #   container_name: mysql_banpdm
+    #   environment:
+    #     MYSQL_ROOT_PASSWORD: password
+    #     MYSQL_DATABASE: company
+    #     # MYSQL_USER: root
+    #   ports:
+    #     - 9482:3306
+    #   volumes:
+    #     - volume-db:/var/lib/mysql
+    #   restart: always
+    #   networks:
+    #     - node1_network
+
+    # redis:
+    #   image: redis:7.2.1
+    #   container_name: redis_banpdm
+    #   restart: always
+    #   ports:
+    #     - 9483:6379
+    #   networks:
+    #     - node1_network
+
+    # phpmyadmin:
+    #   image: phpmyadmin:5.2.1
+    #   container_name: phpmyadmin_banpdm
+    #   restart: always
+    #   ports:
+    #     - 9484:80
+    #   environment:
+    #     - PMA_ARBITRARY:1
+    #     - PMA_HOST:mysql
+    #     - UPLOAD_LIMIT=750M
+    #     - MEMORY_LIMIT=750M
+    #     - MAX_EXECUTION_TIME=300
+    #     - MYSQL_USERNAME:root
+    #     - MYSQL_ROOT_PASSWORD:password
+    #   depends_on:
+    #     - db
+    #   networks:
+    #     - node1_network
+
+    # networks:
+    #   network1:
+    #     name: load_balance_network
+    #     external: true
+    # volumes:
+    #   volume-db:
+networks:
+  load_balance_network:
+    name: load_balance_network
+    external: true
+    # driver: overlay

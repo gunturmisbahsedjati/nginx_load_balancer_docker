@@ -1,0 +1,13 @@
+services:
+  nginx:
+    build: ./app
+    ports:
+      - "3000:80"
+    networks:
+      - load_balance_network
+
+networks:
+  load_balance_network:
+    name: load_balance_network
+    # external: true
+    # driver: overlay
